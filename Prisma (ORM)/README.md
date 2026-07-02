@@ -64,8 +64,8 @@ const deletedUser = await prisma.user.delete({
 ```
 
 
-
-
+ 
+Click here to view the [Next.js, Prisma, and SQLite Cheat Sheet](https://github.com/moshika38/Nextjs-React-Cheatsheet/tree/main/Next%20%7C%20Prisma%20%7C%20Sqlite)
 
 
 
