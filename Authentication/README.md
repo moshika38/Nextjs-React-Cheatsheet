@@ -144,6 +144,170 @@ export default async function Navbar() {
 * **XSS Defended:** Session tokens reside within secure `httpOnly` cookies, keeping them invisible to malicious client-side JavaScript execution.
 
 
+---
+
+
+ 
+# 🔐 JWT (JSON Web Token) Structure
+
+A **JSON Web Token (JWT)** is a compact, URL-safe token used for securely transmitting information between parties. It consists of **three parts**, separated by dots (`.`).
+
+```
+Header.Payload.Signature
+```
+
+### Example JWT
+
+```text
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJ1c2VySWQiOiIxMjMiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZXhwIjoxNzU0MDAwMDAwfQ.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+---
+
+# JWT Structure
+
+```text
+                 JWT
+┌─────────────────────────────────────┐
+│ Header │ Payload │ Signature        │
+└─────────────────────────────────────┘
+      │         │           │
+      ▼         ▼           ▼
+  Metadata   User Claims   Verification
+```
+
+---
+
+# 1. Header
+
+The **Header** contains metadata about the token.
+
+### Example
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+### Fields
+
+| Field | Description |
+|--------|-------------|
+| `alg` | Signing algorithm (e.g., HS256, RS256) |
+| `typ` | Token type (`JWT`) |
+
+---
+
+# 2. Payload
+
+The **Payload** contains **claims**, which are pieces of information about the user or the token.
+
+### Example
+
+```json
+{
+  "userId": "123",
+  "email": "test@gmail.com",
+  "role": "admin",
+  "iat": 1754000000,
+  "exp": 1754086400
+}
+```
+
+## Common Claims
+
+| Claim | Description |
+|--------|-------------|
+| `sub` | Subject (User ID) |
+| `email` | User email |
+| `role` | User role |
+| `iat` | Issued At |
+| `exp` | Expiration Time |
+| `iss` | Issuer |
+| `aud` | Audience |
+
+> **⚠️ Important**
+>
+> The Payload is **Base64URL encoded**, **not encrypted**.
+>
+> **Never store sensitive information** such as:
+>
+> - Passwords
+> - OTPs
+> - Credit card numbers
+> - API keys
+> - Secret keys
+
+---
+
+# 3. Signature
+
+The **Signature** ensures that the token has **not been modified** after it was issued.
+
+### Signature Generation
+
+```text
+Signature = HMACSHA256(
+    base64Url(Header) + "." + base64Url(Payload),
+    SECRET_KEY
+)
+```
+
+The server uses its **Secret Key** to:
+
+- Generate the signature
+- Verify the signature when the client sends the token back
+
+If someone changes the Header or Payload, the generated signature will no longer match, and the token becomes invalid.
+
+---
+
+# How JWT Works
+
+```text
+Client
+   │
+   │ Login (Email & Password)
+   ▼
+Server
+   │
+   │ Validate Credentials
+   ▼
+Generate JWT
+   │
+   ▼
+Return JWT
+   │
+   ▼
+Client Stores Token
+   │
+   │ Authorization: Bearer <JWT>
+   ▼
+Protected API
+   │
+   ▼
+Server Verifies Signature
+   │
+   ├── Valid   ✅ Allow Access
+   └── Invalid ❌ Reject Request
+```
+
+---
+
+# Summary
+
+| Part | Purpose |
+|------|---------|
+| **Header** | Contains token metadata (algorithm and type) |
+| **Payload** | Contains user information and claims |
+| **Signature** | Verifies the token's integrity and authenticity |
+
+ 
+
 
 
 

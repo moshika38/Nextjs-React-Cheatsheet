@@ -152,5 +152,15 @@ export default function UserList() {
 ```
  
 
+## 6.🔥 Difference Between PUT & PATCH
 
+| Feature            | PUT                                                                                              | PATCH                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| **Update Type**    | Full Update                                                                                      | Partial Update                                             |
+| **Fields**         | Send the entire resource (all fields)                                                            | Send only the fields that need to be updated               |
+| **Missing Fields** | Missing fields may be replaced, removed, or set to default (depending on the API implementation) | Missing fields remain unchanged                            |
+| **Use Case**       | Replace the entire resource                                                                      | Update one or more specific fields of an existing resource |
+ 
+ 
+ 
  
