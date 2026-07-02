@@ -18,6 +18,7 @@ The core modules included in this project:
 * **`Portal | Pop-up Window/`** – Creating clean modals and overlays using React Portals.
 * **`Routing/`** – Dynamic routing, nested routes, and navigation via the Next.js App Router.
 * **`RTK | State Management/`** – Global state management patterns using Redux Toolkit.
+* **`Prisma (ORM)/`** – Prisma application `CRUD` operations
 
 ---
 
@@ -26,5 +27,6 @@ The core modules included in this project:
 npx create-next-app@latest my-app
 cd my-app
 npm run dev
+
 
 
